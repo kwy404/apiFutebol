@@ -8,6 +8,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/:idcampeonato/:key', async (req, res) => {
+    //Basic api key
     if(req.params.key === "9@:@77PA4!3pjP.@mZ2JY`4C82uqbe"){
         const idCampeonato = req.params.idcampeonato;
         try {
