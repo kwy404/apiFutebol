@@ -30,4 +30,43 @@ const futebol = async idCampeonato => {
     return jogos
 }
 
-module.exports = futebol
+const aoVivo = async () => {
+    const url = `https://rksporte.net/sistema_v2/usuarios/simulador/desktop/AoVivo.aspx`;
+    const bodyData = await axios.get(url);
+    const $ = cheerio.load(bodyData.data);
+    const jogos = []
+    let title = ""
+    $(`.container .main .bodyBets .containerBets #updAoVivo .eventlist .eventlistContainer div`).each((i, jogo) => {
+        const teams = []
+        if($(jogo).find(".eventlist-country .name").text()){
+            title = $(jogo).find(".eventlist-country .name").text()
+        } else if($(jogo).find(".eventlist-events .containerCards")){
+            $(jogo).find(".eventlist-events .containerCards").each((i, event) => {
+                $(event).find('.cardItem').each((i, time) => {
+                    const timerLiveTime = $(time).find('.timerLive .time')
+                    const timerLivePeriod = $(time).find('.timerLive .period')
+                    $(time).find('.teams .team').each((i, times) => {
+                        const logoTeam = $(times).find(".logoTeam img").attr('src')
+                        const nameTeam = $(times).find(".nameTeam ").text()
+                        const score = $(times).find(".score").text()
+                        teams.push({
+                            logoTeam,
+                            nameTeam,
+                            score
+                        })
+                    })
+                })
+            })
+        }
+        if(teams.length > 0){
+            jogos.push({
+                title,
+                teams
+            })
+        }
+    })
+    return jogos
+}
+
+
+module.exports = {futebol, aoVivo}

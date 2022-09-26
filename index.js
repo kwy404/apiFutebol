@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || '7000'
-const futebol = require('./class/futebol')
+const {futebol, aoVivo} = require('./class/futebol')
 const cors = require('cors');
 
 app.use(cors())
@@ -23,7 +23,16 @@ app.get('/:idcampeonato/:key', async (req, res) => {
     } else{
         res.send('{error: true, message: "API KEY INVALID"}')
     }
-    
+})
+
+app.get('/aoVivo', async (req, res) => {
+    try {
+        const jogos = await aoVivo()
+        res.send(jogos);
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+    }
 })
 
 app.listen(port, () => {
