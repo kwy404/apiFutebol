@@ -37,14 +37,14 @@ const futebol = async idCampeonato => {
         })
         $(jogo).find(`.outcomesMain div a`).each((i, cotacaoT) => {
             if(i == 0){
-                cotacao.casa.id = $(cotacaoT).text()
-                cotacao.casa.price = $(cotacaoT).attr('id')
+                cotacao.casa.price = $(cotacaoT).text()
+                cotacao.casa.id = $(cotacaoT).attr('id')
             } else if(i == 1){
-                cotacao.empate.id = $(cotacaoT).text()
-                cotacao.empate.price = $(cotacaoT).attr('id')
+                cotacao.empate.price = $(cotacaoT).text()
+                cotacao.empate.id = $(cotacaoT).attr('id')
             } else if(i == 2){
-                cotacao.fora.id = $(cotacaoT).text()
-                cotacao.fora.price = $(cotacaoT).attr('id')
+                cotacao.fora.price = $(cotacaoT).text()
+                cotacao.fora.id = $(cotacaoT).attr('id')
             }
         })
         id = $(jogo).find(`.boxOdds`).attr('id')
@@ -103,14 +103,14 @@ const aoVivo = async () => {
                     })
                     $(jogo).find(`.outcomesMain div a`).each((i, cotacaoT) => {
                         if(i == 0){
-                            cotacao.casa.id = $(cotacaoT).text()
-                            cotacao.casa.price = $(cotacaoT).attr('id')
+                            cotacao.casa.price = $(cotacaoT).text()
+                            cotacao.casa.id = $(cotacaoT).attr('id')
                         } else if(i == 1){
-                            cotacao.empate.id = $(cotacaoT).text()
-                            cotacao.empate.price = $(cotacaoT).attr('id')
+                            cotacao.empate.price = $(cotacaoT).text()
+                            cotacao.empate.id = $(cotacaoT).attr('id')
                         } else if(i == 2){
-                            cotacao.fora.id = $(cotacaoT).text()
-                            cotacao.fora.price = $(cotacaoT).attr('id')
+                            cotacao.fora.price = $(cotacaoT).text()
+                            cotacao.fora.id = $(cotacaoT).attr('id')
                         }
                     })
                     id = $(jogo).find(`.boxOdds`).attr('id')
