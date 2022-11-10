@@ -31,11 +31,13 @@ const futebol = async idCampeonato => {
                 cotacao.fora = $(cotacaoT).text()
             }
         })
+        const totalOutComes =$(jogo).find('.totalOutcomes .totalOutcomes-button').text() ? $(jogo).find('.totalOutcomes .totalOutcomes-button').text(): ''
         jogos.push({
             title,
             dateAndHours,
             teams,
-            cotacao
+            cotacao,
+            totalOutComes
         })
     })
     return jogos
@@ -76,6 +78,7 @@ const aoVivo = async () => {
                             cotacao.fora = $(cotacaoT).text()
                         }
                     })
+                    const totalOutComes =$(jogo).find('.totalOutcomes .totalOutcomes-button').text() ? $(jogo).find('.totalOutcomes .totalOutcomes-button').text(): ''
                 })
             })
         }
@@ -83,7 +86,8 @@ const aoVivo = async () => {
             jogos.push({
                 title,
                 teams,
-                cotacao
+                cotacao,
+                totalOutComes
             })
         }
     })
