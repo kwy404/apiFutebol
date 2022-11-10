@@ -9,11 +9,24 @@ const futebol = async idCampeonato => {
     const container = $(".container .main .containerBets .eventlist .dateEventAndSearch .titlePage")
     const title = $(container).find('#content_nomeDia').text();
     const jogos = []
-
+    let id = ""
     $(`.container .main .bodyBets .containerBets .eventlist .eventlistContainer #u${idCampeonato} .pais .eventlist-events .containerCards #cardJogo`).each((i, jogo) => {
         const dateAndHours = $(jogo).find(".dateAndHour .date").text() + " - " + $(jogo).find(".dateAndHour .hour").text()
         const teams = []
-        const cotacao = {casa: 0, empate: 0, fora: 0}
+        const cotacao = {
+            casa: {
+                id: 0,
+                price: 0
+            },
+            empate: {
+                id: 0,
+                price: 0
+            },
+            fora: {
+                id: 0,
+                price: 0
+            }
+        }
         $(jogo).find(".teams .team").each((i, team) => {
             const logoTeam = $(team).find(".logoTeam img").attr('src')
             const nameTeam = $(team).find(".nameTeam span").text()
@@ -24,15 +37,20 @@ const futebol = async idCampeonato => {
         })
         $(jogo).find(`.outcomesMain div a`).each((i, cotacaoT) => {
             if(i == 0){
-                cotacao.casa = $(cotacaoT).text()
+                cotacao.casa.id = $(cotacaoT).text()
+                cotacao.casa.price = $(cotacaoT).attr('id')
             } else if(i == 1){
-                cotacao.empate = $(cotacaoT).text()
+                cotacao.empate.id = $(cotacaoT).text()
+                cotacao.empate.price = $(cotacaoT).attr('id')
             } else if(i == 2){
-                cotacao.fora = $(cotacaoT).text()
+                cotacao.fora.id = $(cotacaoT).text()
+                cotacao.fora.price = $(cotacaoT).attr('id')
             }
         })
+        id = $(jogo).find(`.boxOdds`).attr('id')
         const totalOutComes =$(jogo).find('.totalOutcomes .totalOutcomes-button').text() ? $(jogo).find('.totalOutcomes .totalOutcomes-button').text(): ''
         jogos.push({
+            id,
             title,
             dateAndHours,
             teams,
@@ -51,7 +69,21 @@ const aoVivo = async () => {
     let title = ""
     $(`.container .main .bodyBets .containerBets #updAoVivo .eventlist .eventlistContainer div`).each((i, jogo) => {
         const teams = []
-        const cotacao = {casa: 0, empate: 0, fora: 0}
+        let id = ""
+        const cotacao = {
+            casa: {
+                id: 0,
+                price: 0
+            },
+            empate: {
+                id: 0,
+                price: 0
+            },
+            fora: {
+                id: 0,
+                price: 0
+            }
+        }
         if($(jogo).find(".eventlist-country .name").text()){
             title = $(jogo).find(".eventlist-country .name").text()
         } else if($(jogo).find(".eventlist-events .containerCards")){
@@ -71,19 +103,24 @@ const aoVivo = async () => {
                     })
                     $(jogo).find(`.outcomesMain div a`).each((i, cotacaoT) => {
                         if(i == 0){
-                            cotacao.casa = $(cotacaoT).text()
+                            cotacao.casa.id = $(cotacaoT).text()
+                            cotacao.casa.price = $(cotacaoT).attr('id')
                         } else if(i == 1){
-                            cotacao.empate = $(cotacaoT).text()
+                            cotacao.empate.id = $(cotacaoT).text()
+                            cotacao.empate.price = $(cotacaoT).attr('id')
                         } else if(i == 2){
-                            cotacao.fora = $(cotacaoT).text()
+                            cotacao.fora.id = $(cotacaoT).text()
+                            cotacao.fora.price = $(cotacaoT).attr('id')
                         }
                     })
-                    const totalOutComes =$(jogo).find('.totalOutcomes .totalOutcomes-button').text() ? $(jogo).find('.totalOutcomes .totalOutcomes-button').text(): ''
+                    id = $(jogo).find(`.boxOdds`).attr('id')
+                    const totalOutComes = $(jogo).find('.totalOutcomes .totalOutcomes-button').text() ? $(jogo).find('.totalOutcomes .totalOutcomes-button').text(): ''
                 })
             })
         }
         if(teams.length > 0){
             jogos.push({
+                id,
                 title,
                 teams,
                 cotacao,

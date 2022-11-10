@@ -18,6 +18,7 @@ app.get('/:idcampeonato/:key', async (req, res) => {
             const jogos = await futebol(idCampeonato)
             res.send(jogos);
         } catch (error) {
+            console.log(error)
             res.send('{error: true}')
         }
     } else{
