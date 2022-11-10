@@ -16,15 +16,18 @@ const futebol = async idCampeonato => {
         const cotacao = {
             casa: {
                 id: 0,
-                price: 0
+                price: 0,
+                locked: false
             },
             empate: {
                 id: 0,
-                price: 0
+                price: 0,
+                locked: false
             },
             fora: {
                 id: 0,
-                price: 0
+                price: 0,
+                locked: false
             }
         }
         $(jogo).find(".teams .team").each((i, team) => {
@@ -42,6 +45,7 @@ const futebol = async idCampeonato => {
                 } else{
                     cotacao.casa.price = '--'
                 }
+                cotacao.casa.locked = $(cotacaoT).attr('class').includes('oddLocked')
                 cotacao.casa.id = $(cotacaoT).attr('id')
             } else if(i == 1){
                 if(cotacao.empate.price = $(cotacaoT).text() != "--"){
@@ -49,6 +53,7 @@ const futebol = async idCampeonato => {
                 } else{
                     cotacao.empate.price = '--'
                 }
+                cotacao.empate.locked = $(cotacaoT).attr('class').includes('oddLocked')
                 cotacao.empate.id = $(cotacaoT).attr('id')
             } else if(i == 2){
                 if(cotacao.fora.price = $(cotacaoT).text() != "--"){
@@ -56,6 +61,7 @@ const futebol = async idCampeonato => {
                 } else{
                     cotacao.fora.price = '--'
                 }
+                cotacao.fora.locked = $(cotacaoT).attr('class').includes('oddLocked')
                 cotacao.fora.id = $(cotacaoT).attr('id')
             }
         })
@@ -85,15 +91,18 @@ const aoVivo = async () => {
         const cotacao = {
             casa: {
                 id: 0,
-                price: 0
+                price: 0,
+                locked: false
             },
             empate: {
                 id: 0,
-                price: 0
+                price: 0,
+                locked: false
             },
             fora: {
                 id: 0,
-                price: 0
+                price: 0,
+                locked: false
             }
         }
         if($(jogo).find(".eventlist-country .name").text()){
@@ -120,6 +129,7 @@ const aoVivo = async () => {
                             } else{
                                 cotacao.casa.price = '--'
                             }
+                            cotacao.casa.locked = $(cotacaoT).attr('class').includes('oddLocked')
                             cotacao.casa.id = $(cotacaoT).attr('id')
                         } else if(i == 1){
                             if(cotacao.empate.price = $(cotacaoT).text() != "--"){
@@ -127,6 +137,7 @@ const aoVivo = async () => {
                             } else{
                                 cotacao.empate.price = '--'
                             }
+                            cotacao.empate.locked = $(cotacaoT).attr('class').includes('oddLocked')
                             cotacao.empate.id = $(cotacaoT).attr('id')
                         } else if(i == 2){
                             if(cotacao.fora.price = $(cotacaoT).text() != "--"){
@@ -134,6 +145,7 @@ const aoVivo = async () => {
                             } else{
                                 cotacao.fora.price = '--'
                             }
+                            cotacao.fora.locked = $(cotacaoT).attr('class').includes('oddLocked')
                             cotacao.fora.id = $(cotacaoT).attr('id')
                         }
                     })
