@@ -13,6 +13,7 @@ const futebol = async idCampeonato => {
     $(`.container .main .bodyBets .containerBets .eventlist .eventlistContainer #u${idCampeonato} .pais .eventlist-events .containerCards #cardJogo`).each((i, jogo) => {
         const dateAndHours = $(jogo).find(".dateAndHour .date").text() + " - " + $(jogo).find(".dateAndHour .hour").text()
         const teams = []
+        const cotacao = {casa: 0, empate: 0, fora: 0}
         $(jogo).find(".teams .team").each((i, team) => {
             const logoTeam = $(team).find(".logoTeam img").attr('src')
             const nameTeam = $(team).find(".nameTeam span").text()
@@ -21,10 +22,20 @@ const futebol = async idCampeonato => {
                 nameTeam
             })
         })
+        $(jogo).find(`.outcomesMain div a`).each((i, cotacaoT) => {
+            if(i == 0){
+                cotacao.casa = $(cotacaoT).text()
+            } else if(i == 1){
+                cotacao.empate = $(cotacaoT).text()
+            } else if(i == 2){
+                cotacao.fora = $(cotacaoT).text()
+            }
+        })
         jogos.push({
             title,
             dateAndHours,
-            teams
+            teams,
+            cotacao
         })
     })
     return jogos
@@ -38,6 +49,7 @@ const aoVivo = async () => {
     let title = ""
     $(`.container .main .bodyBets .containerBets #updAoVivo .eventlist .eventlistContainer div`).each((i, jogo) => {
         const teams = []
+        const cotacao = {casa: 0, empate: 0, fora: 0}
         if($(jogo).find(".eventlist-country .name").text()){
             title = $(jogo).find(".eventlist-country .name").text()
         } else if($(jogo).find(".eventlist-events .containerCards")){
@@ -55,13 +67,23 @@ const aoVivo = async () => {
                             score
                         })
                     })
+                    $(jogo).find(`.outcomesMain div a`).each((i, cotacaoT) => {
+                        if(i == 0){
+                            cotacao.casa = $(cotacaoT).text()
+                        } else if(i == 1){
+                            cotacao.empate = $(cotacaoT).text()
+                        } else if(i == 2){
+                            cotacao.fora = $(cotacaoT).text()
+                        }
+                    })
                 })
             })
         }
         if(teams.length > 0){
             jogos.push({
                 title,
-                teams
+                teams,
+                cotacao
             })
         }
     })
