@@ -37,13 +37,13 @@ const futebol = async idCampeonato => {
         })
         $(jogo).find(`.outcomesMain div a`).each((i, cotacaoT) => {
             if(i == 0){
-                cotacao.casa.price = $(cotacaoT).text()
+                cotacao.casa.price = $(cotacaoT).text().replace(',', '.')
                 cotacao.casa.id = $(cotacaoT).attr('id')
             } else if(i == 1){
-                cotacao.empate.price = $(cotacaoT).text()
+                cotacao.empate.price = $(cotacaoT).text().replace(',', '.')
                 cotacao.empate.id = $(cotacaoT).attr('id')
             } else if(i == 2){
-                cotacao.fora.price = $(cotacaoT).text()
+                cotacao.fora.price = $(cotacaoT).text().replace(',', '.')
                 cotacao.fora.id = $(cotacaoT).attr('id')
             }
         })
@@ -103,13 +103,13 @@ const aoVivo = async () => {
                     })
                     $(jogo).find(`.outcomesMain div a`).each((i, cotacaoT) => {
                         if(i == 0){
-                            cotacao.casa.price = $(cotacaoT).text()
+                            cotacao.casa.price = $(cotacaoT).text().replace(',', '.')
                             cotacao.casa.id = $(cotacaoT).attr('id')
                         } else if(i == 1){
-                            cotacao.empate.price = $(cotacaoT).text()
+                            cotacao.empate.price = $(cotacaoT).text().replace(',', '.')
                             cotacao.empate.id = $(cotacaoT).attr('id')
                         } else if(i == 2){
-                            cotacao.fora.price = $(cotacaoT).text()
+                            cotacao.fora.price = $(cotacaoT).text().replace(',', '.')
                             cotacao.fora.id = $(cotacaoT).attr('id')
                         }
                     })
